@@ -1,0 +1,45 @@
+services:
+  # alion-preview:
+  #   container_name: alion-preview
+  #   image: alion-server:latest
+  #   restart: always
+  #   ports:
+  #     - 127.0.0.1:3000:8080
+  #   environment:
+  #     alion_CONNECTION_STRING: Host=alion-db;Port=5432;Database=alion;Username=postgres;Password=postgres
+  #   depends_on:
+  #     - alion-db
+  #   volumes:
+  #     - ./alion.Server/keys/storage:/app/keys/storage
+
+  alion-db:
+    container_name: alion-db
+    image: postgres
+    restart: always
+    user: postgres
+    volumes:
+      - alion-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  alion-telemetry:
+    container_name: alion-telemetry
+    image: mcr.microsoft.com/dotnet/aspire-dashboard
+    ports:
+      - 18888:18888
+      - 4317:18889
+    environment:
+      - DASHBOARD__OTLP__AUTHMODE=ApiKey
+      - DASHBOARD__OTLP__PRIMARYAPIKEY=768ba790-4261-4b9f-91d9-0fc21838463c
+
+volumes:
+  alion-db-data:

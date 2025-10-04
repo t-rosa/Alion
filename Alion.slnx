@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Alion.Client/Alion.Client.esproj">
+    <Platform Project="AnyCPU" />
+  </Project>
+  <Project Path="Alion.Server/Alion.Server.csproj" />
+  <Project Path="Alion.Tests/Alion.Tests.csproj" />
+</Solution>
